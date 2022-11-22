@@ -90,3 +90,28 @@ You can also run an extract using the specific archive that you used.  You can m
 borg extract ssh-borg-backup-test:/path/to/where/you/want/to/store/the/repo::archiveNameInstance_22_11_22_12_00
 ```
 
+## Backing up
+
+```
+chmod +x backup.sh
+```
+
+Fill in the values:
+
+- `BORG_PASSPHRASE`: Encryption Password
+- `BORG_SSH_CONFIG_NAME`: "ssh-borg-backup-test"
+- `BORG_REMOTE_DIRECTORY_PATH`: "/path/to/where/you/want/to/store/the/repo"
+- `BORG_ARCHIVE_NAME_PREFIX`: "archiveNameInstance" | WIll append the date to make it distinct
+- `BORG_BACKUP_HOST_FIRST_DIRECTORY_PATH`: "/directory/that/you/want/to/backup/on/the/host"
+- `BORG_BACKUP_HOST_SECOND_DIRECTORY_PATH`: "/optionally/second/path"
+- `DOCKER_COMPOSE_DIRECTORY_ONE`: "/home/chris/testDockerDir/compose/docker-compose.yml"
+- `DOCKER_COMPOSE_DIRECTORY_SECOND`: "/home/chris/testDockerDir/compose/docker-compose.yml"
+- `LOG_DIRECTORY`: "."
+- `GOTIFY_SERVERNAME`: "TEST-SERVER"
+- `GOTIFY_ENDPOINT_WITH_API_KEY`: "https://GOTIFY.domain-name.com/message?token=TOKEN_KEY"
+
+
+---
+
+TODO: Update docs for the repo listings.
+Create new repo dependant on python.
