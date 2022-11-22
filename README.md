@@ -59,3 +59,34 @@ Then we'll want to export the key and store it locally.
 ```
 borg key export ssh-borg-backup-test:/path/to/where/you/want/to/store/the/repo
 ```
+
+## Manually Running the create
+
+If at this point, you want to ensure that everything was created successfully, (and for some piece of mind) then you can manually run your first (or any) borg create command to manually backup your data. 
+
+You'll need a distinct backup name so I recommend the date. 
+
+```
+borg create --progress --stats ssh-borg-backup-test:/path/to/where/you/want/to/store/the/repo::archiveNameInstance_22_11_22_12_00 /directory/that/you/want/to/backup/on/the/host /optionally/second/path
+```
+
+### Validation 
+
+You can either list out your data with the archive that you used.
+
+```
+borg list ssh-borg-backup-test:/path/to/where/you/want/to/store/the/repo::archiveNameInstance_22_11_22_12_00
+```
+
+You can list out the archives at any point to see what is stored in the repo just be excluding the repo name.
+
+```
+borg list ssh-borg-backup-test:/path/to/where/you/want/to/store/the/repo
+```
+
+You can also run an extract using the specific archive that you used.  You can move std out or just `cd` into your test directory on your host. 
+
+```
+borg extract ssh-borg-backup-test:/path/to/where/you/want/to/store/the/repo::archiveNameInstance_22_11_22_12_00
+```
+
