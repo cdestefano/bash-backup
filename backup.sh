@@ -57,16 +57,15 @@ borg create \
     --stats \
     $BORG_SSH_CONFIG_NAME:$BORG_REMOTE_DIRECTORY_PATH::$BORG_ARCHIVE_NAME \
     $BORG_BACKUP_HOST_FIRST_DIRECTORY_PATH \
-    $BORG_BACKUP_HOST_SECOND_DIRECTORY_PATH \
-    2>&1 | tee -a "$FULL_LOG_DIRECTORY/borg_create.txt"
+    $BORG_BACKUP_HOST_SECOND_DIRECTORY_PATH
 
-docker-compose -f "$DOCKER_COMPOSE_DIRECTORY_ONE" up -d
 docker-compose -f "$DOCKER_COMPOSE_DIRECTORY_SECOND" up -d
+docker-compose -f "$DOCKER_COMPOSE_DIRECTORY_ONE" up -d
 
 sleep 10 &
 wait
 
-docker-compose -f "$DOCKER_COMPOSE_DIRECTORY_SECOND" up -d
+docker-compose -f "$DOCKER_COMPOSE_DIRECTORY_ONE" up -d
 
 sleep 10 &
 wait
@@ -74,8 +73,16 @@ wait
 MESSAGE="$(cat $FULL_LOG_DIRECTORY/borg_create.txt)"
 ./send-notification.sh \
     -g $GOTIFY_ENDPOINT_WITH_API_KEY \
-    -t "Borg Backup completed: $GOTIFY_SERVERNAME" \
-    -m "Containers: $MESSAGE"
+    -t "Backup completed: $GOTIFY_SERVERNAME" \
+    -m "Borg create completed"
+
+./list-all-backups.sh \
+    -p $BORG_PASSPHRASE \
+    -s $BORG_SSH_CONFIG_NAME \
+    -r $BORG_REMOTE_DIRECTORY_PATH \
+    -l $FULL_LOG_DIRECTORY \
+    -i $GOTIFY_SERVERNAME \
+    -g $GOTIFY_ENDPOINT_WITH_API_KEY
 
 docker ps | tee "$FULL_LOG_DIRECTORY/docker_started_containers.txt"
 
