@@ -4,6 +4,8 @@ I needed a quick and dirty script to backup my servers to a remote host.  This a
 
 This can easily be wrapped around cron to run on any given interval. 
 
+Contrary to the name, this uses shell vs bash as my test container worked easier with permissions out of the box when using the shell.
+
 ## Init borg repo
 
 Steps to init the borg repo.
@@ -93,7 +95,7 @@ borg extract ssh-borg-backup-test:/path/to/where/you/want/to/store/the/repo::arc
 ## Backing up
 
 ```
-chmod +x backup.sh
+chmod +x backup.sh list-all-backups.sh send-notification.sh
 ```
 
 Fill in the values:
@@ -110,8 +112,12 @@ Fill in the values:
 - `GOTIFY_SERVERNAME`: "TEST-SERVER"
 - `GOTIFY_ENDPOINT_WITH_API_KEY`: "https://GOTIFY.domain-name.com/message?token=TOKEN_KEY"
 
+Run with:
+
+```
+./backup.sh
+```
 
 ---
 
-TODO: Update docs for the repo listings.
-Create new repo dependant on python.
+TODO: Create new repo dependant on python.
