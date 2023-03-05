@@ -16,6 +16,8 @@ BORG_ARCHIVE_NAME_PREFIX="archiveNameInstance"
 
 BORG_BACKUP_HOST_FIRST_DIRECTORY_PATH="/directory/that/you/want/to/backup/on/the/host"
 BORG_BACKUP_HOST_SECOND_DIRECTORY_PATH="/optionally/second/path"
+BORG_BACKUP_HOST_THIRD_DIRECTORY_PATH="/optionally/third/path"
+BORG_BACKUP_HOST_FOURTH_DIRECTORY_PATH="/optionally/fourth/path"
 
 DOCKER_COMPOSE_DIRECTORY_ONE="/home/chris/testDockerDir/compose/docker-compose.yml"
 DOCKER_COMPOSE_DIRECTORY_SECOND="/home/chris/testDockerDir/compose/docker-compose.yml"
@@ -57,7 +59,9 @@ borg create \
     --stats \
     $BORG_SSH_CONFIG_NAME:$BORG_REMOTE_DIRECTORY_PATH::$BORG_ARCHIVE_NAME \
     $BORG_BACKUP_HOST_FIRST_DIRECTORY_PATH \
-    $BORG_BACKUP_HOST_SECOND_DIRECTORY_PATH
+    $BORG_BACKUP_HOST_SECOND_DIRECTORY_PATH \
+    $BORG_BACKUP_HOST_THIRD_DIRECTORY_PATH \
+    $BORG_BACKUP_HOST_FOURTH_DIRECTORY_PATH
 
 docker-compose -f "$DOCKER_COMPOSE_DIRECTORY_SECOND" up -d
 docker-compose -f "$DOCKER_COMPOSE_DIRECTORY_ONE" up -d
